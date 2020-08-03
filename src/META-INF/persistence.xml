@@ -7,6 +7,11 @@
 	<persistence-unit name="jpaSGBD"  transaction-type="JTA">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		<jta-data-source>java:comp/env/jdbc/jpa</jta-data-source>
+		<class>entities.AuthoritiesEntity</class>
+		<class>entities.RolesEntity</class>
+		<class>entities.RolesAuthoritiesEntity</class>
+		<class>entities.TeamsEntity</class>
+		<class>entities.WorkersEntity</class>
 
 		<properties>
 			<property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306/projetsgbd"/>
