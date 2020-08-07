@@ -25,5 +25,5 @@
               maxActive="100" maxIdle="30" maxWait="10000"
               username="root" password=""
               driverClassName="com.mysql.jdbc.Driver"
-              url="jdbc:mysql://localhost:3306/projetsgbd?autoReconnect=true"/>
+              url="jdbc:mysql://localhost:3306/projetsgbd"/>
 </Context>
