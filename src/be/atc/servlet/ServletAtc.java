@@ -1,7 +1,5 @@
 package be.atc.servlet;
 
-import entities.RolesEntity;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -21,13 +19,13 @@ public class ServletAtc extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpaSGBD");
         EntityManager em = emf.createEntityManager();
-        RolesEntity role = new RolesEntity();
-        System.out.println("avant peristence nouveau role");
-        //role.setId(5);
-        role.setLabel("Boss");
-        role.setDescr("Le patron de l'entreprise");
-        em.persist(role);
-        System.out.println("objet rôle persisté");
+//        RolesEntity role = new RolesEntity();
+//        System.out.println("avant peristence nouveau role");
+//        //role.setId(5);
+//        role.setLabel("Boss");
+//        role.setDescr("Le patron de l'entreprise");
+//        em.persist(role);
+//        System.out.println("objet rôle persisté");
 
     }
 }

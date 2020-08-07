@@ -11,7 +11,6 @@ public class RolesAuthoritiesEntity {
     private AuthoritiesEntity authoritiesByAuthoritiesId;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;

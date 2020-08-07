@@ -1,11 +1,13 @@
 package entities;
 
+import models.SexeType;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "workers", schema = "projetsgbd", catalog = "")
+@Table(name = "workers", schema = "projetsgbd")
 public class WorkersEntity {
     private int id;
     private Date birthdate;
@@ -14,12 +16,11 @@ public class WorkersEntity {
     private String lastName;
     private String login;
     private String passwordKey;
-    private Object sexe;
+    private SexeType sexe;
     private RolesEntity rolesByRolesId;
     private TeamsEntity teamsByTeamsId;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;
@@ -89,13 +90,13 @@ public class WorkersEntity {
         this.passwordKey = passwordKey;
     }
 
-    @Basic
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "sexe", nullable = true)
-    public Object getSexe() {
+    public SexeType getSexe() {
         return sexe;
     }
 
-    public void setSexe(Object sexe) {
+    public void setSexe(SexeType sexe) {
         this.sexe = sexe;
     }
 
@@ -111,7 +112,7 @@ public class WorkersEntity {
                 Objects.equals(lastName, that.lastName) &&
                 Objects.equals(login, that.login) &&
                 Objects.equals(passwordKey, that.passwordKey) &&
-                Objects.equals(sexe, that.sexe);
+                this.sexe.equals(that.sexe);
     }
 
     @Override
