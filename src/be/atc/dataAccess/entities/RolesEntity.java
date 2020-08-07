@@ -1,11 +1,11 @@
-package entities;
+package be.atc.dataAccess.entities;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "authorities", schema = "projetsgbd", catalog = "")
-public class AuthoritiesEntity {
+@Table(name = "roles", schema = "projetsgbd", catalog = "")
+public class RolesEntity {
     private int id;
     private String descr;
     private String label;
@@ -44,7 +44,7 @@ public class AuthoritiesEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AuthoritiesEntity that = (AuthoritiesEntity) o;
+        RolesEntity that = (RolesEntity) o;
         return id == that.id &&
                 Objects.equals(descr, that.descr) &&
                 Objects.equals(label, that.label);

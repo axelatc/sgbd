@@ -1,4 +1,4 @@
-package models;
+package be.atc.models;
 
 public enum SexeType {
     MALE,

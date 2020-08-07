@@ -1,4 +1,4 @@
-package be.atc.servlet;
+package be.atc.servlets;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

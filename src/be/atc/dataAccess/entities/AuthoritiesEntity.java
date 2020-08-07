@@ -1,12 +1,13 @@
-package entities;
+package be.atc.dataAccess.entities;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "teams", schema = "projetsgbd", catalog = "")
-public class TeamsEntity {
+@Table(name = "authorities", schema = "projetsgbd", catalog = "")
+public class AuthoritiesEntity {
     private int id;
+    private String descr;
     private String label;
 
     @Id
@@ -17,6 +18,16 @@ public class TeamsEntity {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Basic
+    @Column(name = "descr", nullable = true, length = 2000)
+    public String getDescr() {
+        return descr;
+    }
+
+    public void setDescr(String descr) {
+        this.descr = descr;
     }
 
     @Basic
@@ -33,13 +44,14 @@ public class TeamsEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TeamsEntity that = (TeamsEntity) o;
+        AuthoritiesEntity that = (AuthoritiesEntity) o;
         return id == that.id &&
+                Objects.equals(descr, that.descr) &&
                 Objects.equals(label, that.label);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, label);
+        return Objects.hash(id, descr, label);
     }
 }

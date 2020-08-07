@@ -1,4 +1,4 @@
-package entities;
+package be.atc.dataAccess.entities;
 
 import javax.persistence.*;
 import java.util.Objects;

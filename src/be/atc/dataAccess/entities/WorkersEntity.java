@@ -1,6 +1,6 @@
-package entities;
+package be.atc.dataAccess.entities;
 
-import models.SexeType;
+import be.atc.models.SexeType;
 
 import javax.persistence.*;
 import java.sql.Date;
