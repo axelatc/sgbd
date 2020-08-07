@@ -6,7 +6,7 @@
 
 	<persistence-unit name="jpaSGBD"  transaction-type="JTA">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-		<jta-data-source>java:comp/env/jdbc/jpa</jta-data-source>
+		<jta-data-source>java:comp/env/jdbc/jpaDS</jta-data-source>
 		<class>entities.AuthoritiesEntity</class>
 		<class>entities.RolesEntity</class>
 		<class>entities.RolesAuthoritiesEntity</class>
@@ -17,14 +17,14 @@
 			<property name="eclipselink.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
 		</properties>
 
-		#DataSourceSettings#
-		#LocalDataSource: projetsgbd
-		#BEGIN#
-		<data-source source="LOCAL" name="projetsgbd" uuid="01e6154e-9147-48bf-86d3-3cea6ad37903">
-			<database-info product="MySQL" version="8.0.20" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.21 (Revision: 33f65445a1bcc544eb0120491926484da168f199)" dbms="MYSQL" exact-version="8.0.20" exact-driver-version="8.0">
-				<extra-name-characters>#@</extra-name-characters><identifier-quote-string>`</identifier-quote-string></database-info>
-			<case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/><driver-ref>mysql.8</driver-ref><synchronize>true</synchronize><jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver><jdbc-url>jdbc:mysql://localhost:3306/projetsgbd</jdbc-url><secret-storage>master_key</secret-storage><user-name>root</user-name><schema-mapping><introspection-scope><node kind="schema" qname="@"/></introspection-scope></schema-mapping></data-source>
-		#END#
+<!--		#DataSourceSettings#-->
+<!--		#LocalDataSource: projetsgbd-->
+<!--		#BEGIN#-->
+<!--		<data-source source="LOCAL" name="projetsgbd" uuid="01e6154e-9147-48bf-86d3-3cea6ad37903">-->
+<!--			<database-info product="MySQL" version="8.0.20" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.21 (Revision: 33f65445a1bcc544eb0120491926484da168f199)" dbms="MYSQL" exact-version="8.0.20" exact-driver-version="8.0">-->
+<!--				<extra-name-characters>#@</extra-name-characters><identifier-quote-string>`</identifier-quote-string></database-info>-->
+<!--			<case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/><driver-ref>mysql.8</driver-ref><synchronize>true</synchronize><jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver><jdbc-url>jdbc:mysql://localhost:3306/projetsgbd</jdbc-url><secret-storage>master_key</secret-storage><user-name>root</user-name><schema-mapping><introspection-scope><node kind="schema" qname="@"/></introspection-scope></schema-mapping></data-source>-->
+<!--		#END#-->
 
 
 
