@@ -4,13 +4,14 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "roles", schema = "projetsgbd", catalog = "")
+@Table(name = "roles", schema = "projetsgbd")
 public class RolesEntity {
     private int id;
     private String descr;
     private String label;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;

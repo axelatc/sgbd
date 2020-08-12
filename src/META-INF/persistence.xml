@@ -4,7 +4,7 @@
 			 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 			 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_0.xsd">
 
-	<persistence-unit name="jpaSGBD"  transaction-type="JTA">
+	<persistence-unit name="jpaSGBD"  transaction-type="RESOURCE_LOCAL">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		<jta-data-source>java:comp/env/jdbc/jpaDS</jta-data-source>
 		<class>be.atc.dataAccess.entities.AuthoritiesEntity</class>
@@ -13,18 +13,11 @@
 		<class>be.atc.dataAccess.entities.TeamsEntity</class>
 		<class>be.atc.dataAccess.entities.WorkersEntity</class>
 		<properties>
-			<property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306/projetsgbd"/>
-			<property name="eclipselink.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+			<property name="eclipselink.jdbc.url" value="jdbc:mysql://127.0.0.1:3306/projetsgbd"/>
+			<property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+			<property name="javax.persistence.jdbc.user" value="root"/>
+			<property name="javax.persistence.jdbc.password" value=""/>
 		</properties>
-
-<!--		#DataSourceSettings#-->
-<!--		#LocalDataSource: projetsgbd-->
-<!--		#BEGIN#-->
-<!--		<data-source source="LOCAL" name="projetsgbd" uuid="01e6154e-9147-48bf-86d3-3cea6ad37903">-->
-<!--			<database-info product="MySQL" version="8.0.20" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.21 (Revision: 33f65445a1bcc544eb0120491926484da168f199)" dbms="MYSQL" exact-version="8.0.20" exact-driver-version="8.0">-->
-<!--				<extra-name-characters>#@</extra-name-characters><identifier-quote-string>`</identifier-quote-string></database-info>-->
-<!--			<case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/><driver-ref>mysql.8</driver-ref><synchronize>true</synchronize><jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver><jdbc-url>jdbc:mysql://localhost:3306/projetsgbd</jdbc-url><secret-storage>master_key</secret-storage><user-name>root</user-name><schema-mapping><introspection-scope><node kind="schema" qname="@"/></introspection-scope></schema-mapping></data-source>-->
-<!--		#END#-->
 
 
 

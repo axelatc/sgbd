@@ -1,4 +1,4 @@
-package be.atc.models;
+package be.atc.dataAccess.entities;
 
 public enum SexeType {
     MALE,

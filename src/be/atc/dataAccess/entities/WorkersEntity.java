@@ -1,13 +1,11 @@
 package be.atc.dataAccess.entities;
 
-import be.atc.models.SexeType;
-
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "workers", schema = "projetsgbd")
+@Table(name = "workers", schema = "projetsgbd", catalog = "")
 public class WorkersEntity {
     private int id;
     private Date birthdate;
@@ -17,10 +15,9 @@ public class WorkersEntity {
     private String login;
     private String passwordKey;
     private SexeType sexe;
-    private RolesEntity rolesByRolesId;
-    private TeamsEntity teamsByTeamsId;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public int getId() {
         return id;
@@ -90,8 +87,9 @@ public class WorkersEntity {
         this.passwordKey = passwordKey;
     }
 
-    @Enumerated(EnumType.ORDINAL)
-    @Column(name = "sexe", nullable = true)
+    @Basic
+    @Enumerated(EnumType.STRING)
+    @Column(name = "sexe", nullable = false)
     public SexeType getSexe() {
         return sexe;
     }
@@ -112,31 +110,11 @@ public class WorkersEntity {
                 Objects.equals(lastName, that.lastName) &&
                 Objects.equals(login, that.login) &&
                 Objects.equals(passwordKey, that.passwordKey) &&
-                this.sexe.equals(that.sexe);
+                Objects.equals(sexe, that.sexe);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, birthdate, firstName, isDeleted, lastName, login, passwordKey, sexe);
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "roles_id", referencedColumnName = "id", nullable = false)
-    public RolesEntity getRolesByRolesId() {
-        return rolesByRolesId;
-    }
-
-    public void setRolesByRolesId(RolesEntity rolesByRolesId) {
-        this.rolesByRolesId = rolesByRolesId;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "teams_id", referencedColumnName = "id", nullable = false)
-    public TeamsEntity getTeamsByTeamsId() {
-        return teamsByTeamsId;
-    }
-
-    public void setTeamsByTeamsId(TeamsEntity teamsByTeamsId) {
-        this.teamsByTeamsId = teamsByTeamsId;
     }
 }
