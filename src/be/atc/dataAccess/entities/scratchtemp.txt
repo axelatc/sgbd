@@ -1,7 +1,0 @@
-    @Enumerated(EnumType.ORDINAL)
-    @Column(name = "sexe", nullable = true)
-    public SexeType getSexeType() { return sexeType; }
-
-    public void setSexeType(SexeType sexeType) {
-        this.sexeType = sexeType;
-    }

@@ -1,0 +1,10 @@
+    @Basic
+    @Enumerated(EnumType.STRING)
+    @Column(name = "sexe", nullable = false)
+    public SexeType getSexe() {
+        return sexe;
+    }
+
+    public void setSexe(SexeType sexe) {
+        this.sexe = sexe;
+    }
