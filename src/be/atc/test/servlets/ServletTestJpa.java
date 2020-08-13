@@ -1,5 +1,6 @@
 package be.atc.test.servlets;
 
+import be.atc.dataAccess.dao.EMF;
 import be.atc.dataAccess.entities.RolesEntity;
 
 import javax.persistence.EntityManager;
@@ -18,8 +19,7 @@ public class ServletTestJpa extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpaSGBD");
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = EMF.getEM();
         RolesEntity role = new RolesEntity();
 
         //role.setId(5);

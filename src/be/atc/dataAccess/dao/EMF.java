@@ -12,7 +12,7 @@ import javax.persistence.Persistence;
 public final class EMF {
 
     private static EntityManagerFactory emfInstance =
-            Persistence.createEntityManagerFactory("your_unit_persistence_name");
+            Persistence.createEntityManagerFactory("jpaSGBD");
 
     private EMF() {}
 
