@@ -25,38 +25,7 @@ public class ServletAtc extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpaSGBD");
-        EntityManager em = emf.createEntityManager();
-        RolesEntity role = new RolesEntity();
 
-        //role.setId(5);
-        role.setLabel("Boss");
-        role.setDescr("Le patron de l'entreprise");
-        System.out.println("avant persistence nouveau role");
-        em.clear();
-        em.getTransaction().begin();
-        em.persist(role);
-        em.getTransaction().commit();
-//        em.flush();
-        em.close();
-        System.out.println("objet rôle persisté");
-//        InitialContext ctx = null;
-//        try {
-//            ctx = new InitialContext();
-//        } catch (NamingException e) {
-//            e.printStackTrace();
-//        }
-//        try {
-//            DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/jpaDS");
-//            try {
-//                Connection conn = ds.getConnection();
-//
-//            } catch (SQLException throwables) {
-//                throwables.printStackTrace();
-//            }
-//        } catch (NamingException e) {
-//            e.printStackTrace();
-//        }
 
 
     }
