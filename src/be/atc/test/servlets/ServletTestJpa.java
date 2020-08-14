@@ -1,7 +1,9 @@
 package be.atc.test.servlets;
 
 import be.atc.dataAccess.EMF;
+import be.atc.dataAccess.EntityFinderImpl;
 import be.atc.dataAccess.entities.RolesEntity;
+import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -12,6 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 @WebServlet("/ServletTestJpa")
 public class ServletTestJpa extends HttpServlet {
+
+    private static Logger log = Logger.getLogger(ServletTestJpa.class);
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
@@ -23,12 +28,13 @@ public class ServletTestJpa extends HttpServlet {
         //role.setId(5);
         role.setLabel("Boss");
         role.setDescr("Le patron de l'entreprise");
-        System.out.println("avant persistence nouveau role");
-        em.clear();
+        log.debug("Before persisting new Role");
+
         em.getTransaction().begin();
         em.persist(role);
         em.getTransaction().commit();
+        em.clear();
         em.close();
-        System.out.println("objet rôle persisté");
+        log.debug("New Role has been peristed successfully");
     }
 }
