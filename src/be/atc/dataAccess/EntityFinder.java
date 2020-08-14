@@ -1,4 +1,4 @@
-package be.atc.dataAccess.dao;
+package be.atc.dataAccess;
 
 import java.util.List;
 import java.util.Map;

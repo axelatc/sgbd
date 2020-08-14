@@ -1,11 +1,9 @@
 package be.atc.test.servlets;
 
-import be.atc.dataAccess.dao.EMF;
+import be.atc.dataAccess.EMF;
 import be.atc.dataAccess.entities.RolesEntity;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,25 +28,7 @@ public class ServletTestJpa extends HttpServlet {
         em.getTransaction().begin();
         em.persist(role);
         em.getTransaction().commit();
-//        em.flush();
         em.close();
         System.out.println("objet rôle persisté");
-//        InitialContext ctx = null;
-//        try {
-//            ctx = new InitialContext();
-//        } catch (NamingException e) {
-//            e.printStackTrace();
-//        }
-//        try {
-//            DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/jpaDS");
-//            try {
-//                Connection conn = ds.getConnection();
-//
-//            } catch (SQLException throwables) {
-//                throwables.printStackTrace();
-//            }
-//        } catch (NamingException e) {
-//            e.printStackTrace();
-//        }
     }
 }

@@ -1,4 +1,4 @@
-package be.atc.dataAccess.dao;
+package be.atc.dataAccess;
 
 import java.io.Serializable;
 import java.util.*;
