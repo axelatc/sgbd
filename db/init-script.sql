@@ -38,7 +38,7 @@ CREATE TABLE workers (
   last_name VARCHAR(255) NOT NULL,
   login VARCHAR(255) NOT NULL,
   password_key VARCHAR(255) NOT NULL,
-  sexe ENUM('mâle','femelle','autre') NOT NULL,
+  sexe ENUM('MALE','FEMELLE','AUTRE') NOT NULL,
   CONSTRAINT pk_workers PRIMARY KEY (id),
   CONSTRAINT fk_workers_roles_id FOREIGN KEY (roles_id) REFERENCES roles (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT fk_workers_teams_id FOREIGN KEY (teams_id) REFERENCES teams (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -106,7 +106,7 @@ INSERT INTO `teams` (`id`,`label`)  VALUES (2,"service technique");
 
 INSERT INTO `workers`
   (`id`,`roles_id`,`teams_id`,`first_name`,`last_name`,`login`,`password_key`,`birthdate`,`is_deleted`,`sexe`)
-  VALUES (1,3,1,"Jessica","SuperDactylo","jessica.sd","pass","2000-01-01",FALSE,"femelle");
+  VALUES (1,3,1,"Jessica","SuperDactylo","jessica.sd","pass","2000-01-01",FALSE,"FEMELLE");
 
 INSERT INTO `authorities`
   (`id`,`label`,`descr`)
