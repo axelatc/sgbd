@@ -6,6 +6,13 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "workers", schema = "projetsgbd", catalog = "")
+@NamedQueries({
+        @NamedQuery(name="Workers.findWorkerByLogin",
+                    query="SELECT w " +
+                            "FROM WorkersEntity w " +
+                            "WHERE w.login = :login")
+
+})
 public class WorkersEntity {
     private int id;
     private Date birthdate;
