@@ -22,6 +22,8 @@ public class WorkersEntity {
     private String login;
     private String passwordKey;
     private SexeType sexe;
+    private RolesEntity rolesByRolesId;
+    private TeamsEntity teamsByTeamsId;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -123,5 +125,25 @@ public class WorkersEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id, birthdate, firstName, isDeleted, lastName, login, passwordKey, sexe);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "roles_id", referencedColumnName = "id", nullable = false)
+    public RolesEntity getRolesByRolesId() {
+        return rolesByRolesId;
+    }
+
+    public void setRolesByRolesId(RolesEntity rolesByRolesId) {
+        this.rolesByRolesId = rolesByRolesId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "teams_id", referencedColumnName = "id", nullable = false)
+    public TeamsEntity getTeamsByTeamsId() {
+        return teamsByTeamsId;
+    }
+
+    public void setTeamsByTeamsId(TeamsEntity teamsByTeamsId) {
+        this.teamsByTeamsId = teamsByTeamsId;
     }
 }
