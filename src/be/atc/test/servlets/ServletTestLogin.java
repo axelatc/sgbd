@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/ServletTestLogin")
+@WebServlet(name = "ServletTestLogin", urlPatterns = "/ServletTestLogin")
 public class ServletTestLogin extends HttpServlet {
 
     private static Logger log = Logger.getLogger(ServletTestLogin.class);

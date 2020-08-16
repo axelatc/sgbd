@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name="ServletAuthentication",
+@WebServlet(name="ServletLogin",
             urlPatterns = {"/login"})
 public class ServletLogin extends HttpServlet {
     private static Logger log = Logger.getLogger(ServletTestLogin.class);
