@@ -34,7 +34,7 @@ CREATE TABLE workers (
   teams_id INT NOT NULL,
   birthdate DATE NOT NULL,
   first_name VARCHAR(255) NOT NULL,
-  is_deleted BOOLEAN NOT NULL,
+  is_deleted TINYINT(1) NOT NULL,
   last_name VARCHAR(255) NOT NULL,
   login VARCHAR(255) NOT NULL,
   password_key VARCHAR(255) NOT NULL,
