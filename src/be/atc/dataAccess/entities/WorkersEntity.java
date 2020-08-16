@@ -1,5 +1,6 @@
 package be.atc.dataAccess.entities;
 
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Objects;
@@ -10,8 +11,35 @@ import java.util.Objects;
         @NamedQuery(name="Workers.findWorkerByLogin",
                     query="SELECT w " +
                             "FROM WorkersEntity w " +
-                            "WHERE w.login = :login")
+                            "WHERE w.login = :login"),
 
+        // CRUD Workers queries
+        @NamedQuery(name = "Workers.findAllWorkers",
+                query = "SELECT w " +
+                        "FROM WorkersEntity w"),
+        @NamedQuery(name = "Workers.findWorkerById",
+                query = "SELECT w " +
+                        "FROM WorkersEntity w " +
+                        "WHERE w.id = :id"),
+        @NamedQuery(name = "Workers.deleteWorkerById",
+                query = "DELETE " +
+                        "FROM WorkersEntity w " +
+                        "WHERE w.id = :id"),
+        @NamedQuery(name = "Workers.updateWorkerById",
+                query = "UPDATE WorkersEntity w " +
+                        "SET " +
+                        "w.rolesByRolesId = :rolesId, " +
+                        "w.teamsByTeamsId = :teamsId, " +
+                        "w.birthdate = :birthdate, " +
+                        "w.firstName = :firstName, " +
+                        "w.deleted = :isDeleted, " +
+                        "w.lastName = :lastName, " +
+                        "w.login = :login, " +
+                        "w.passwordKey = :passwordKey, " +
+                        "w.sexe = :sexe " +
+                        "WHERE w.id = :id "),
+/*        @NamedQuery(name = "Workers.createWorker",
+                query = "UPDATE WorkersEntity w "),*/
 })
 public class WorkersEntity {
     private int id;
