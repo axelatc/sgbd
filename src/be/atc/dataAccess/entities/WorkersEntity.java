@@ -151,6 +151,22 @@ public class WorkersEntity {
     }
 
     @Override
+    public String toString() {
+        return "WorkersEntity{" +
+                "id=" + id +
+                ", birthdate=" + birthdate +
+                ", firstName='" + firstName + '\'' +
+                ", isDeleted=" + isDeleted +
+                ", lastName='" + lastName + '\'' +
+                ", login='" + login + '\'' +
+                ", passwordKey='" + passwordKey + '\'' +
+                ", sexe=" + sexe +
+                ", rolesByRolesId=" + rolesByRolesId +
+                ", teamsByTeamsId=" + teamsByTeamsId +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(id, birthdate, firstName, isDeleted, lastName, login, passwordKey, sexe);
     }
