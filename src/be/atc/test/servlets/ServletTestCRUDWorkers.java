@@ -69,6 +69,28 @@ public class ServletTestCRUDWorkers extends HttpServlet {
         em.getTransaction().commit();
         log.debug("nombre de workers updated: " + numUpdated);
 
+        log.debug("Building named query Workers.createWorker");
+        WorkersEntity workerToInsert = em.createNamedQuery("Workers.findWorkerById", WorkersEntity.class)
+                .setParameter("id", 1)
+                .getSingleResult();
+        workerToInsert.setFirstName("John");
+        workerToInsert.setLastName("Carry");
+
+        em.getTransaction().begin();
+        em.createNamedQuery("Workers.createWorker", WorkersEntity.class)
+                .setParameter(1, 1)
+                .setParameter(2, 2)
+                .setParameter(3, java.sql.Date.valueOf("2020-09-04"))
+                .setParameter(4, "new Guy")
+                .setParameter(5, false)
+                .setParameter(6, "Newbie")
+                .setParameter(7, "newguy.N")
+                .setParameter(8, "passofnewguy")
+                .setParameter(9, SexeType.AUTRE.toString())
+                .executeUpdate();
+        em.getTransaction().commit();
+        log.debug("");
+
 
     }
 }
