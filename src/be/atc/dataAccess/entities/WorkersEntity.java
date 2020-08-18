@@ -8,10 +8,10 @@ import java.util.Objects;
 @Entity
 @Table(name = "workers", schema = "projetsgbd", catalog = "")
 @NamedQueries({
-        @NamedQuery(name="Workers.findWorkerByLogin",
-                    query="SELECT w " +
-                            "FROM WorkersEntity w " +
-                            "WHERE w.login = :login"),
+        @NamedQuery(name = "Workers.findWorkerByLogin",
+                query = "SELECT w " +
+                        "FROM WorkersEntity w " +
+                        "WHERE w.login = :login"),
 
         // CRUD Workers queries
         @NamedQuery(name = "Workers.findAllWorkers",
@@ -37,10 +37,33 @@ import java.util.Objects;
                         "w.login = :login, " +
                         "w.passwordKey = :passwordKey, " +
                         "w.sexe = :sexe " +
-                        "WHERE w.id = :id "),
-/*        @NamedQuery(name = "Workers.createWorker",
-                query = "UPDATE WorkersEntity w "),*/
+                        "WHERE w.id = :id ")
 })
+// JPA doesnt support INSERT JPSQL query so we use a SQL query
+@NamedNativeQuery(name = "Workers.createWorker",
+        query = "INSERT INTO workers" +
+                "(" +
+                "roles_id," +
+                "teams_id," +
+                "birthdate," +
+                "first_name," +
+                "is_deleted," +
+                "last_name," +
+                "login," +
+                "password_key," +
+                "sexe)" +
+                "VALUES " +
+                "(" +
+                "?," +
+                "?," +
+                "?," +
+                "?," +
+                "?," +
+                "?," +
+                "?," +
+                "?," +
+                "?);",
+        resultClass = WorkersEntity.class)
 public class WorkersEntity {
     private int id;
     private Date birthdate;
