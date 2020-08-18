@@ -3,4 +3,18 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+    <context-param>
+        <param-name>viewsBaseDir</param-name>
+        <param-value>/views/</param-value>
+    </context-param>
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <include-prelude>/includes/header.jsp</include-prelude>
+        </jsp-property-group>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <include-coda>/includes/footer.jsp</include-coda>
+        </jsp-property-group>
+    </jsp-config>
 </web-app>
