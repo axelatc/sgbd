@@ -21,6 +21,8 @@ public class ServletLogin extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.debug("User requests the login page");
         request.setAttribute("pageTitle", "Login");
-        request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request,response);
+        String loginJspURL = getServletContext().getInitParameter("viewsBaseDir") + "login.jsp";
+        log.debug("forwarded to JSP at path: " + loginJspURL);
+        request.getRequestDispatcher(loginJspURL).forward(request,response);
     }
 }
