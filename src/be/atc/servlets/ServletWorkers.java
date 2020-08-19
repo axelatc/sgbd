@@ -9,7 +9,13 @@ import java.io.IOException;
 
 @WebServlet(name = "ServletWorkers", urlPatterns = "/workers/*")
 public class ServletWorkers extends HttpServlet {
-    private final String viewsBaseDir = getServletContext().getInitParameter("viewsBaseDir") + "workers/";
+    private String viewsBaseDir;
+
+    @Override
+    public void init() throws ServletException {
+        this.viewsBaseDir = getServletContext().getInitParameter("viewsBaseDir") + "workers/";
+        super.init();
+    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
