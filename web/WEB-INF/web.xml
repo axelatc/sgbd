@@ -17,4 +17,12 @@
             <include-coda>/includes/footer.jsp</include-coda>
         </jsp-property-group>
     </jsp-config>
+    <filter>
+        <filter-name>AuthenticationFilter</filter-name>
+        <filter-class>be.atc.filters.AuthenticationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthenticationFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 </web-app>
