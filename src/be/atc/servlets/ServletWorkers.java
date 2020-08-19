@@ -9,15 +9,15 @@ import java.io.IOException;
 
 @WebServlet(name = "ServletWorkers", urlPatterns = "/workers/*")
 public class ServletWorkers extends HttpServlet {
+    private final String viewsBaseDir = getServletContext().getInitParameter("viewsBaseDir") + "workers/";
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String requestURI = request.getRequestURI();
-        String viewsBaseDirectoryContextPath = getServletContext().getInitParameter("viewsBaseDir");
-        String workersViewsBaseDir = "workers/";
-        String forwardURL = viewsBaseDirectoryContextPath + workersViewsBaseDir;
+        String forwardURL = this.viewsBaseDir;
         if (requestURI.endsWith("/create")){
             forwardURL += "create.jsp";
         }
