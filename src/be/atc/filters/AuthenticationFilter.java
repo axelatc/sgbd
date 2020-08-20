@@ -29,7 +29,7 @@ public class AuthenticationFilter implements Filter {
 
         // Only authentified clients can access the app
         HttpSession session= request.getSession();
-        if(session.getAttribute("currentUser") != null || incomingPath.equalsIgnoreCase("/login")) {
+        if(session.getAttribute("authUser") != null || incomingPath.equalsIgnoreCase("/login")) {
             chain.doFilter(request, response);
         } else {
             response.sendRedirect(request.getContextPath() + "/login");
