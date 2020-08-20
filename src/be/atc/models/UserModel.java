@@ -10,25 +10,6 @@ public class UserModel {
     private static final String LOGIN_VALIDITY_PATTERN = "[A-Za-z0-9_]+";
     private static final String PASSWORD_VALIDITY_PATTERN = "[A-Za-z0-9_]+";
 
-    private static boolean loginIsValid(String login) {
-        int loginLength = login.length();
-        return (login != null
-                && !login.isEmpty()
-                && loginLength >= MIN_LENGTH_LOGIN
-                && loginLength <= MAX_LENGTH_LOGIN
-                && login.matches(LOGIN_VALIDITY_PATTERN));
-    }
-
-    private static boolean passwordIsValid(String password) {
-        int passwordLength = password.length();
-        return (password != null
-                && !password.isEmpty()
-                && passwordLength >= MIN_LENGTH_PASSWORD
-                && passwordLength <= MAX_LENGTH_PASSWORD
-                && password.matches(PASSWORD_VALIDITY_PATTERN));
-    }
-
-
     private String login;
     private String password;
 
@@ -51,9 +32,24 @@ public class UserModel {
         this.password = password;
     }
 
-    public boolean isValid() {
-        return loginIsValid(this.login) && passwordIsValid(this.password);
+    public boolean loginIsValid() {
+        int loginLength = login.length();
+        return (login != null
+                && !login.isEmpty()
+                && loginLength >= MIN_LENGTH_LOGIN
+                && loginLength <= MAX_LENGTH_LOGIN
+                && login.matches(LOGIN_VALIDITY_PATTERN));
     }
+
+    public boolean passwordIsValid() {
+        int passwordLength = password.length();
+        return (password != null
+                && !password.isEmpty()
+                && passwordLength >= MIN_LENGTH_PASSWORD
+                && passwordLength <= MAX_LENGTH_PASSWORD
+                && password.matches(PASSWORD_VALIDITY_PATTERN));
+    }
+
 
 
 }
