@@ -106,11 +106,11 @@ INSERT INTO `teams` (`id`,`label`)  VALUES (2,"service technique");
 
 INSERT INTO `workers`
   (`id`,`roles_id`,`teams_id`,`first_name`,`last_name`,`login`,`password_key`,`birthdate`,`is_deleted`,`sexe`)
-  VALUES (1,3,1,"Jessica","SuperDactylo","jessica.sd","pass","2000-01-01",FALSE,"FEMELLE");
+  VALUES (1,3,1,"Jessica","SuperDactylo","jessica_sd","randompassword","2000-01-01",FALSE,"FEMELLE");
   
 INSERT INTO `workers`
   (`id`,`roles_id`,`teams_id`,`first_name`,`last_name`,`login`,`password_key`,`birthdate`,`is_deleted`,`sexe`)
-  VALUES (2,1,1,"Jack","Black","jack.black","pass","2000-01-01",FALSE,"MALE");
+  VALUES (2,1,1,"Jack","Black","jack_black","randompassword","2000-01-01",FALSE,"MALE");
 
 INSERT INTO `authorities`
   (`id`,`label`,`descr`)
