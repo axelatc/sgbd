@@ -5,6 +5,7 @@ import be.atc.test.servlets.ServletTestJpa;
 import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 
 public class WorkersService {
     protected EntityManager em;
@@ -21,12 +22,18 @@ public class WorkersService {
         em.getTransaction().commit();
     }
 
-    public WorkersEntity findWorkerByUsername(String username) throws IllegalArgumentException {
+    public WorkersEntity findWorkerByUsernameOrNull(String username) throws IllegalArgumentException {
         log.debug("Finding worker of username " + username);
+
         if (username != null && !username.isEmpty()) {
-            return em.createNamedQuery("Workers.findWorkerByLogin", WorkersEntity.class)
-                    .setParameter("login", username)
-                    .getSingleResult();
+            try {
+                return em.createNamedQuery("Workers.findWorkerByLogin", WorkersEntity.class)
+                        .setParameter("login", username)
+                        .getSingleResult();
+            } catch (NoResultException e) {
+                log.debug("The query found no worker to return", e);
+                return null;
+            }
         } else {
             throw new IllegalArgumentException("Can't search worker in database: the username is null or empty");
         }
