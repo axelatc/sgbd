@@ -4,8 +4,7 @@ import be.atc.dataAccess.EMF;
 import be.atc.dataAccess.entities.WorkersEntity;
 import be.atc.dataAccess.services.WorkersService;
 import be.atc.models.UserModel;
-import be.atc.test.servlets.ServletTestLogin;
-import be.atc.utils.AppConfig;
+import be.atc.AppConfig;
 import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
@@ -21,14 +20,8 @@ import java.util.*;
             urlPatterns = {"/login"})
 public class ServletLogin extends HttpServlet {
     private static final Logger log = Logger.getLogger(ServletLogin.class);
-    private static final Map<String, String> VIEWS_PATHS;
-    static {
-        Map<String, String> temp = new HashMap<String, String>();
-        String thisViewsRootPath = AppConfig.VIEWS_ROOT_PATH + "auth/";
-        temp.put("login", thisViewsRootPath + "login.jsp");
-        temp.put("logout", thisViewsRootPath + "logout.jsp");
-        VIEWS_PATHS = Collections.unmodifiableMap(temp);
-    }
+    private static final String THIS_VIEWS_ROOT_PATH = AppConfig.VIEWS_ROOT_PATH + "auth/";
+    public static final  String LOGIN_VIEW_PATH = THIS_VIEWS_ROOT_PATH + "login.jsp";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.debug("User attempts to login");
@@ -59,19 +52,19 @@ public class ServletLogin extends HttpServlet {
                     // Le mdp est incorrect
                     else {
                         errorMessages.add("Veuillez réessayer.");
-                        forwardURL = VIEWS_PATHS.get("login");
+                        forwardURL = LOGIN_VIEW_PATH;
                     }
                 }
                 // L'utilisateur n'existe pas dans la DB
                 else {
                     errorMessages.add("Votre nom d'utilisateur est introuvable.");
-                    forwardURL = VIEWS_PATHS.get("login");
+                    forwardURL = LOGIN_VIEW_PATH;
                 }
             }
             // Données du formulaire incorrectes
             else {
                 errorMessages.add("Veuillez entrer un nom d'utilisateur et un mot de passe valides.");
-                forwardURL = VIEWS_PATHS.get("login");
+                forwardURL = LOGIN_VIEW_PATH;
             }
         }
 
@@ -89,7 +82,7 @@ public class ServletLogin extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.debug("User requests the login page");
         request.setAttribute("pageTitle", "Login");
-        log.debug("forwarded to JSP at path: " + VIEWS_PATHS.get("login"));
-        request.getRequestDispatcher(VIEWS_PATHS.get("login")).forward(request, response);
+        log.debug("forwarded to JSP at path: " + LOGIN_VIEW_PATH);
+        request.getRequestDispatcher(LOGIN_VIEW_PATH).forward(request, response);
     }
 }
