@@ -68,16 +68,12 @@ public class ServletLogin extends HttpServlet {
             }
         }
 
-        StringBuilder errorMessagesBuilder = new StringBuilder();
-        for(String s : errorMessages) {
-            errorMessagesBuilder.append(s);
-        }
-        request.setAttribute("errors", errorMessagesBuilder.toString());
-
+        request.setAttribute("errorMessages", errorMessages);
         getServletContext()
                 .getRequestDispatcher(forwardURL)
                 .forward(request, response);
     }
+
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.debug("User requests the login page");

@@ -3,7 +3,7 @@
             <div class="login-form">
                 <form action="${pageContext.request.contextPath}/login" method="post">
                     <h2 class="text-center">Log in</h2>
-                    <p>${requestScope.errors}</p>
+                    <jsp:include page="/includes/form_error_messages.jsp"></jsp:include>
                     <div class="form-group">
                         <input name="username" type="text" class="form-control" placeholder="Username" required="required">
                     </div>
