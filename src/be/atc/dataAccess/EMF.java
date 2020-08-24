@@ -11,10 +11,11 @@ import javax.persistence.Persistence;
  */
 public final class EMF {
 
-    private static EntityManagerFactory emfInstance =
+    private static final EntityManagerFactory emfInstance =
             Persistence.createEntityManagerFactory("jpaSGBD");
 
-    private EMF() {}
+    private EMF() {
+    }
 
     public static EntityManagerFactory getEMF() {
         return emfInstance;

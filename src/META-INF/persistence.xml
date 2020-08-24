@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.0"
-			 xmlns="http://xmlns.jcp.org/xml/ns/persistence"
-			 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-			 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_0.xsd">
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             version="2.0"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_0.xsd">
 
-	<persistence-unit name="jpaSGBD"  transaction-type="RESOURCE_LOCAL">
-		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-		<jta-data-source>java:comp/env/jdbc/jpaDS</jta-data-source>
-		<class>be.atc.dataAccess.entities.AuthoritiesEntity</class>
-		<class>be.atc.dataAccess.entities.RolesEntity</class>
-		<class>be.atc.dataAccess.entities.RolesAuthoritiesEntity</class>
-		<class>be.atc.dataAccess.entities.TeamsEntity</class>
-		<class>be.atc.dataAccess.entities.WorkersEntity</class>
-		<properties>
-			<property name="eclipselink.jdbc.url" value="jdbc:mysql://127.0.0.1:3306/projetsgbd"/>
-			<property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-			<property name="javax.persistence.jdbc.user" value="root"/>
-			<property name="javax.persistence.jdbc.password" value=""/>
-		</properties>
-
+    <persistence-unit name="jpaSGBD" transaction-type="RESOURCE_LOCAL">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <jta-data-source>java:comp/env/jdbc/jpaDS</jta-data-source>
+        <class>be.atc.dataAccess.entities.AuthorityEntity</class>
+        <class>be.atc.dataAccess.entities.RoleEntity</class>
+        <class>be.atc.dataAccess.entities.TeamEntity</class>
+        <class>be.atc.dataAccess.entities.WorkerEntity</class>
+        <properties>
+            <property name="eclipselink.jdbc.url" value="jdbc:mysql://127.0.0.1:3306/projetsgbd"/>
+            <property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value=""/>
+        </properties>
 
 
-	</persistence-unit>
+    </persistence-unit>
 </persistence>

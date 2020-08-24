@@ -1,55 +1,64 @@
 package be.atc.models;
 
-import java.util.regex.Pattern;
+import java.util.ArrayList;
+import java.util.List;
+
+import static be.atc.utils.ValidationUtils.getErrorMessagesOrEmptyForTextualInput;
 
 public class UserModel {
-    private static final int MIN_LENGTH_LOGIN = 1;
-    private static final int MAX_LENGTH_LOGIN = 255;
-    private static final int MIN_LENGTH_PASSWORD = 8;
-    private static final int MAX_LENGTH_PASSWORD = 255;
-    private static final String LOGIN_VALIDITY_PATTERN = "[A-Za-z0-9_]+";
-    private static final String PASSWORD_VALIDITY_PATTERN = "[A-Za-z0-9_]+";
+    private final int USERNAME_MIN_LENGTH = 5;
+    private final int USERNAME_MAX_LENGTH = 255;
+    private final int PASSWORD_MIN_LENGTH = 8;
+    private final int PASSWORD_MAX_LENGTH = 255;
+    private final String username;
+    private final String password;
 
-    private String login;
-    private String password;
-
-    public UserModel(String login, String password) {
-        this.login = login;
+    public UserModel(String username, String password) {
+        this.username = username;
         this.password = password;
     }
 
-    public String getLogin() {
-        return login;
+    public static String generateRandomPassword() {
+        return "randompassword";
     }
-    private void setLogin(String login) {
-        this.login = login;
+
+    public String getUsername() {
+        return username;
     }
 
     public String getPassword() {
         return password;
     }
-    private void setPassword(String password) {
-        this.password = password;
+
+    public class UserValidator implements Validator {
+
+        @Override
+        public boolean isValid() {
+            return usernameIsValid() && passwordIsValid();
+        }
+
+        public boolean usernameIsValid() {
+            return getErrorMessagesOrEmptyForUsername().isEmpty();
+        }
+
+        public boolean passwordIsValid() {
+            return getErrorMessagesOrEmptyForPassword().isEmpty();
+        }
+
+        @Override
+        public List<String> getAllErrorMessagesOrEmpty() {
+            ArrayList<String> errorMessages = new ArrayList<String>();
+            errorMessages.addAll(getErrorMessagesOrEmptyForUsername());
+            errorMessages.addAll(getErrorMessagesOrEmptyForPassword());
+            return errorMessages;
+        }
+
+        public final List<String> getErrorMessagesOrEmptyForUsername() {
+            return getErrorMessagesOrEmptyForTextualInput(username, "username", USERNAME_MIN_LENGTH, USERNAME_MAX_LENGTH);
+        }
+
+        public final List<String> getErrorMessagesOrEmptyForPassword() {
+            return getErrorMessagesOrEmptyForTextualInput(password, "password", PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH);
+        }
     }
-
-    public boolean loginIsValid() {
-        int loginLength = login.length();
-        return (login != null
-                && !login.isEmpty()
-                && loginLength >= MIN_LENGTH_LOGIN
-                && loginLength <= MAX_LENGTH_LOGIN
-                && login.matches(LOGIN_VALIDITY_PATTERN));
-    }
-
-    public boolean passwordIsValid() {
-        int passwordLength = password.length();
-        return (password != null
-                && !password.isEmpty()
-                && passwordLength >= MIN_LENGTH_PASSWORD
-                && passwordLength <= MAX_LENGTH_PASSWORD
-                && password.matches(PASSWORD_VALIDITY_PATTERN));
-    }
-
-
-
 }

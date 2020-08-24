@@ -1,6 +1,5 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Tomcat 9.0.341" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.341" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
-    <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
     <option name="UPDATE_CLASSES_ON_FRAME_DEACTIVATION" value="true" />
     <option name="SHOW_DIALOG_ON_UPDATE" value="false" />
     <option name="UPDATING_POLICY" value="redeploy-artifacts" />

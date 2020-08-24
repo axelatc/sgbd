@@ -2,7 +2,7 @@ package be.atc.dataAccess.entities;
 
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -10,34 +10,32 @@ import java.util.Objects;
 @NamedQueries({
         @NamedQuery(name = "Workers.findWorkerByLogin",
                 query = "SELECT w " +
-                        "FROM WorkersEntity w " +
-                        "WHERE w.login = :login"),
-
-        // CRUD Workers queries
-        @NamedQuery(name = "Workers.findAllWorkers",
+                        "FROM WorkerEntity w " +
+                        "WHERE w.username = :login"),
+        @NamedQuery(name = "Workers.findAll",
                 query = "SELECT w " +
-                        "FROM WorkersEntity w"),
+                        "FROM WorkerEntity w"),
         @NamedQuery(name = "Workers.findWorkerById",
                 query = "SELECT w " +
-                        "FROM WorkersEntity w " +
-                        "WHERE w.id = :id"),
-        @NamedQuery(name = "Workers.deleteWorkerById",
+                        "FROM WorkerEntity w " +
+                        "WHERE w.id = :id")
+/*        @NamedQuery(name = "Workers.deleteWorkerById",
                 query = "DELETE " +
-                        "FROM WorkersEntity w " +
+                        "FROM WorkerEntity w " +
                         "WHERE w.id = :id"),
         @NamedQuery(name = "Workers.updateWorkerById",
-                query = "UPDATE WorkersEntity w " +
+                query = "UPDATE WorkerEntity w " +
                         "SET " +
-                        "w.rolesByRolesId = :rolesId, " +
-                        "w.teamsByTeamsId = :teamsId, " +
+                        "w.role = :rolesId, " +
+                        "w.team = :teamsId, " +
                         "w.birthdate = :birthdate, " +
                         "w.firstName = :firstName, " +
                         "w.deleted = :isDeleted, " +
                         "w.lastName = :lastName, " +
-                        "w.login = :login, " +
-                        "w.passwordKey = :passwordKey, " +
+                        "w.username = :login, " +
+                        "w.password = :passwordKey, " +
                         "w.sexe = :sexe " +
-                        "WHERE w.id = :id ")
+                        "WHERE w.id = :id "*/
 })
 // JPA doesnt support INSERT JPSQL query so we use a SQL query
 @NamedNativeQuery(name = "Workers.createWorker",
@@ -63,18 +61,18 @@ import java.util.Objects;
                 "?," +
                 "?," +
                 "?);",
-        resultClass = WorkersEntity.class)
-public class WorkersEntity {
+        resultClass = WorkerEntity.class)
+public class WorkerEntity {
     private int id;
-    private Date birthdate;
+    private LocalDate birthdate;
     private String firstName;
     private boolean isDeleted;
     private String lastName;
-    private String login;
-    private String passwordKey;
+    private String username;
+    private String password;
     private SexeType sexe;
-    private RolesEntity rolesByRolesId;
-    private TeamsEntity teamsByTeamsId;
+    private RoleEntity role;
+    private TeamEntity team;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -89,11 +87,11 @@ public class WorkersEntity {
 
     @Basic
     @Column(name = "birthdate", nullable = false)
-    public Date getBirthdate() {
+    public LocalDate getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(Date birthdate) {
+    public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
     }
 
@@ -128,23 +126,23 @@ public class WorkersEntity {
     }
 
     @Basic
-    @Column(name = "login", nullable = false, length = 255)
-    public String getLogin() {
-        return login;
+    @Column(name = "username", nullable = false, length = 255)
+    public String getUsername() {
+        return username;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsername(String login) {
+        this.username = login;
     }
 
     @Basic
     @Column(name = "password_key", nullable = false, length = 255)
-    public String getPasswordKey() {
-        return passwordKey;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPasswordKey(String passwordKey) {
-        this.passwordKey = passwordKey;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Basic
@@ -162,14 +160,14 @@ public class WorkersEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        WorkersEntity that = (WorkersEntity) o;
+        WorkerEntity that = (WorkerEntity) o;
         return id == that.id &&
                 isDeleted == that.isDeleted &&
                 Objects.equals(birthdate, that.birthdate) &&
                 Objects.equals(firstName, that.firstName) &&
                 Objects.equals(lastName, that.lastName) &&
-                Objects.equals(login, that.login) &&
-                Objects.equals(passwordKey, that.passwordKey) &&
+                Objects.equals(username, that.username) &&
+                Objects.equals(password, that.password) &&
                 Objects.equals(sexe, that.sexe);
     }
 
@@ -181,36 +179,36 @@ public class WorkersEntity {
                 ", firstName='" + firstName + '\'' +
                 ", isDeleted=" + isDeleted +
                 ", lastName='" + lastName + '\'' +
-                ", login='" + login + '\'' +
-                ", passwordKey='" + passwordKey + '\'' +
+                ", login='" + username + '\'' +
+                ", password='" + password + '\'' +
                 ", sexe=" + sexe +
-                ", rolesByRolesId=" + rolesByRolesId +
-                ", teamsByTeamsId=" + teamsByTeamsId +
+                ", role=" + role +
+                ", team=" + team +
                 '}';
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, birthdate, firstName, isDeleted, lastName, login, passwordKey, sexe);
+        return Objects.hash(id, birthdate, firstName, isDeleted, lastName, username, password, sexe);
     }
 
     @ManyToOne
     @JoinColumn(name = "roles_id", referencedColumnName = "id", nullable = false)
-    public RolesEntity getRolesByRolesId() {
-        return rolesByRolesId;
+    public RoleEntity getRole() {
+        return role;
     }
 
-    public void setRolesByRolesId(RolesEntity rolesByRolesId) {
-        this.rolesByRolesId = rolesByRolesId;
+    public void setRole(RoleEntity role) {
+        this.role = role;
     }
 
     @ManyToOne
     @JoinColumn(name = "teams_id", referencedColumnName = "id", nullable = false)
-    public TeamsEntity getTeamsByTeamsId() {
-        return teamsByTeamsId;
+    public TeamEntity getTeam() {
+        return team;
     }
 
-    public void setTeamsByTeamsId(TeamsEntity teamsByTeamsId) {
-        this.teamsByTeamsId = teamsByTeamsId;
+    public void setTeam(TeamEntity team) {
+        this.team = team;
     }
 }

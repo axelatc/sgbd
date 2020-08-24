@@ -1,14 +1,16 @@
 package be.atc.dataAccess.entities;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "roles", schema = "projetsgbd")
-public class RolesEntity {
+@Table(name = "authorities", schema = "projetsgbd")
+public class AuthorityEntity {
     private int id;
     private String descr;
     private String label;
+    private Collection<RoleEntity> roles;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +24,7 @@ public class RolesEntity {
     }
 
     @Basic
-    @Column(name = "descr", nullable = true, length = 2000)
+    @Column(name = "descr", nullable = false, length = 2000)
     public String getDescr() {
         return descr;
     }
@@ -41,11 +43,24 @@ public class RolesEntity {
         this.label = label;
     }
 
+    @ManyToMany
+    @JoinTable(
+            name = "roles_authorities",
+            joinColumns = @JoinColumn(name = "authorities_id"),
+            inverseJoinColumns = @JoinColumn(name = "roles_id"))
+    public Collection<RoleEntity> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<RoleEntity> roles) {
+        this.roles = roles;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        RolesEntity that = (RolesEntity) o;
+        AuthorityEntity that = (AuthorityEntity) o;
         return id == that.id &&
                 Objects.equals(descr, that.descr) &&
                 Objects.equals(label, that.label);

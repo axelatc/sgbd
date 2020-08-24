@@ -5,7 +5,18 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "teams", schema = "projetsgbd")
-public class TeamsEntity {
+@NamedQueries({
+        @NamedQuery(name = "Teams.findTeamByLabel",
+                query = "SELECT w " +
+                        "FROM TeamEntity w " +
+                        "WHERE w.label = :label"),
+
+        // CRUD Teams queries
+        @NamedQuery(name = "Teams.findAll",
+                query = "SELECT w " +
+                        "FROM TeamEntity w"),
+})
+public class TeamEntity {
     private int id;
     private String label;
 
@@ -34,7 +45,7 @@ public class TeamsEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TeamsEntity that = (TeamsEntity) o;
+        TeamEntity that = (TeamEntity) o;
         return id == that.id &&
                 Objects.equals(label, that.label);
     }
