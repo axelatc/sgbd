@@ -4,7 +4,7 @@
     <div class="login-form">
         <form action="${pageContext.request.contextPath}/login" method="post">
             <h2 class="text-center">Log in</h2>
-            <jsp:include page="/includes/form_error_messages.jsp"></jsp:include>
+            <jsp:include page="/WEB-INF/includes/form_error_messages.jsp"></jsp:include>
             <div class="form-group">
                 <label for="username">username</label>
                 <input name="username" id="username" type="text" class="form-control" placeholder="Username"

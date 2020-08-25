@@ -5,12 +5,9 @@
          version="4.0">
     <jsp-config>
         <jsp-property-group>
-            <url-pattern>/views/*</url-pattern>
-            <include-prelude>/includes/header.jsp</include-prelude>
-        </jsp-property-group>
-        <jsp-property-group>
-            <url-pattern>/views/*</url-pattern>
-            <include-coda>/includes/footer.jsp</include-coda>
+            <url-pattern>/WEB-INF/views/*</url-pattern>
+            <include-prelude>/WEB-INF/includes/header.jsp</include-prelude>
+            <include-coda>/WEB-INF/includes/footer.jsp</include-coda>
         </jsp-property-group>
     </jsp-config>
     <!--    <filter>

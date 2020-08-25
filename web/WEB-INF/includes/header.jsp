@@ -36,6 +36,6 @@
 </head>
 <body>
 <div class="container">
-    <jsp:include page="/includes/navbar.jsp"></jsp:include>
-    <jsp:include page="/includes/error_messages.jsp"></jsp:include>
-<jsp:include page="/includes/success_messages.jsp"></jsp:include>
+    <jsp:include page="/WEB-INF/includes/navbar.jsp"></jsp:include>
+    <jsp:include page="/WEB-INF/includes/error_messages.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/includes/success_messages.jsp"></jsp:include>

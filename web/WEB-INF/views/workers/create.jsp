@@ -1,8 +1,7 @@
-<div class="workers-edit-form">
-    <form action="${pageContext.request.contextPath}/workers/edit" method="post">
-        <h2 class="text-center">Edit new worker</h2>
-        <jsp:include page="/includes/form_error_messages.jsp"></jsp:include>
-        <input name="editID" type="hidden" value="${param.editID}">
+<div class="workers-create-form">
+    <form action="${pageContext.request.contextPath}/workers/create" method="post">
+        <h2 class="text-center">Create new worker</h2>
+        <jsp:include page="/WEB-INF/includes/form_error_messages.jsp"></jsp:include>
         <div class="form-group">
             <label for="firstName">firstName</label>
             <input name="firstName" value="${worker.firstName}"
@@ -44,7 +43,7 @@
                 <c:if test="${roles.size() > 0}">
                     <c:forEach items="${roles}" var="role">
                         <option
-                                <c:if test="worker.role == role">selected="selected"</c:if>
+                                <c:if test="worker.role == role">selected</c:if>
                                 value="${role.id}">${role.label}</option>
                     </c:forEach>
                 </c:if>
