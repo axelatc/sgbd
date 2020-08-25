@@ -21,8 +21,8 @@ import java.util.List;
 @WebServlet(name = "ServletLogin",
         urlPatterns = {"/login", "/logout"})
 public class LoginServlet extends HttpServlet {
-    private static final Logger log = Logger.getLogger(LoginServlet.class);
-    private static final String THIS_VIEWS_ROOT_PATH = AppConfig.VIEWS_ROOT_PATH + "auth/";
+    public static final Logger log = Logger.getLogger(LoginServlet.class);
+    public static final String THIS_VIEWS_ROOT_PATH = AppConfig.VIEWS_ROOT_PATH + "auth/";
     public static final String LOGIN_VIEW_PATH = THIS_VIEWS_ROOT_PATH + "login.jsp";
 
     private List<String> formErrorMessages;
@@ -39,73 +39,73 @@ public class LoginServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.debug("User attempts to login");
-        String forwardURL = "";
-        String requestURI = request.getRequestURI();
-        if (requestURI.endsWith("/login")) {
-            String inputUsername = request.getParameter("username");
-            String inputPassword = request.getParameter("password");
+        String forwardURL = LOGIN_VIEW_PATH;
+        String inputUsername = request.getParameter("username");
+        String inputPassword = request.getParameter("password");
 
-            log.debug("Credentials inputted " + "username: " + inputUsername + " password: " + inputPassword);
-            UserModel user = new UserModel(inputUsername, inputPassword);
-            UserModel.UserValidator validator = user.new UserValidator();
+        log.debug("Credentials inputted " + "username: " + inputUsername + " password: " + inputPassword);
+        UserModel user = new UserModel(inputUsername, inputPassword);
+        UserModel.UserValidator validator = user.new UserValidator();
 
 
-            // Les données du formulaires sont-elles correctes?
-            if (validator.isValid()) {
-                EntityManager em = EMF.getEM();
-                WorkerEntity worker = new WorkerService(em).findWorkerByUsernameOrNull(inputUsername);
-                // L'utilisateur existe dans la DB
-                if (worker != null) {
-                    // Le mot de passe entré correspond
-                    if (user.getPassword().equals(worker.getPassword())) {
-                        request.getSession().setAttribute("authUser", worker);
-                        log.debug("Authenticated user: " + worker.toString());
-                        systemSuccessMessages.add("Succesful login!");
-                        forwardURL = "/workers/list";
+        // Les données du formulaires sont-elles correctes?
+        if (validator.isValid()) {
+            EntityManager em = EMF.getEM();
+            WorkerEntity worker = new WorkerService(em).findWorkerByUsernameOrNull(inputUsername);
+            // L'utilisateur existe dans la DB
+            if (worker != null) {
+                // Le mot de passe entré correspond
+                if (user.getPassword().equals(worker.getPassword())) {
+                    request.getSession().setAttribute("authUser", worker);
+                    log.debug("Authenticated user: " + worker.toString());
+                    systemSuccessMessages.add("Succesful login!");
+                    response.sendRedirect(request.getServletContext().getContextPath() + "/home");
 
-                    }
-                    // Le mdp ne correspond pas
-                    else {
-                        systemErrorMessages.add("Votre mot de passe est incorrect");
-                        forwardURL = LOGIN_VIEW_PATH;
-                    }
                 }
-                // L'utilisateur n'existe pas dans la DB
+                // Le mdp ne correspond pas
                 else {
-                    systemErrorMessages.add("Votre nom d'utilisateur est introuvable.");
+                    systemErrorMessages.add("Votre mot de passe est incorrect");
                     forwardURL = LOGIN_VIEW_PATH;
+                    getServletContext()
+                            .getRequestDispatcher(forwardURL)
+                            .forward(request, response);
                 }
             }
-            // Données du formulaire incorrectes
+            // L'utilisateur n'existe pas dans la DB
             else {
-                formErrorMessages.addAll(validator.getAllErrorMessagesOrEmpty());
+                systemErrorMessages.add("Votre nom d'utilisateur est introuvable.");
                 forwardURL = LOGIN_VIEW_PATH;
+                getServletContext()
+                        .getRequestDispatcher(forwardURL)
+                        .forward(request, response);
             }
-
         }
-
+        // Données du formulaire incorrectes
+        else {
+            formErrorMessages.addAll(validator.getAllErrorMessagesOrEmpty());
+            forwardURL = LOGIN_VIEW_PATH;
+            getServletContext()
+                    .getRequestDispatcher(forwardURL)
+                    .forward(request, response);
+        }
 
         request.setAttribute("formErrorMessages", formErrorMessages);
         request.setAttribute("systemSuccessMessages", systemSuccessMessages);
         request.setAttribute("systemErrorMessages", systemErrorMessages);
-        getServletContext()
-                .getRequestDispatcher(forwardURL)
-                .forward(request, response);
+        log.debug("forward url " + forwardURL);
+
 
     }
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String requestURI = request.getRequestURI();
-        if (requestURI.endsWith("/login")) {
-            log.debug("User requests the login page");
-            request.setAttribute("pageTitle", "Login");
-            log.debug("forwarded to JSP at path: " + LOGIN_VIEW_PATH);
-            request.getRequestDispatcher(LOGIN_VIEW_PATH).forward(request, response);
-        }
+        log.debug("User requests the login page");
+        request.setAttribute("pageTitle", "Login");
+        log.debug("forwarded to JSP at path: " + LOGIN_VIEW_PATH);
+        request.getRequestDispatcher(LOGIN_VIEW_PATH).forward(request, response);
 
         if (requestURI.endsWith("/logout")) {
-
             HttpSession session = request.getSession();
             systemSuccessMessages.add("Vous avez été déconnecté.");
             session.removeAttribute("authUser");
