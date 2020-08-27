@@ -24,20 +24,20 @@ public class AuthenticationFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) resp;
         log.debug("request URI: " + request.getRequestURI());
 
-        // All clients can access static files
-        String incomingPath = request.getRequestURI().substring(request.getContextPath().length());
-        if (incomingPath.startsWith("/resources")) {
+
+        HttpSession session = request.getSession(false);
+        String loginURI = request.getContextPath() + "/login";
+
+        boolean loggedIn = session != null && session.getAttribute("authUser") != null;
+        boolean loginRequest = request.getRequestURI().equals(loginURI);
+
+        log.debug("user is logged in: " + loggedIn);
+        if (loggedIn || loginRequest) {
             chain.doFilter(request, response);
-            return;
         } else {
-            HttpSession session = request.getSession(false);
-            String loginURI = request.getContextPath() + "/login";
-
-            boolean loggedIn = session != null && session.getAttribute("authUser") != null;
-            boolean loginRequest = request.getRequestURI().equals(loginURI);
-
-            log.debug("user is logged in: " + loggedIn);
-            if (loggedIn || loginRequest) {
+            // All clients can access static files
+            String incomingPath = request.getRequestURI().substring(request.getContextPath().length());
+            if (incomingPath.startsWith("/resources")) {
                 chain.doFilter(request, response);
             } else {
                 response.sendRedirect(loginURI);
@@ -45,14 +45,9 @@ public class AuthenticationFilter implements Filter {
         }
 
 
-
-
-
+    }
+        @Override
+        public void init (FilterConfig config) throws ServletException {
+        }
 
     }
-
-    @Override
-    public void init(FilterConfig config) throws ServletException {
-    }
-
-}
