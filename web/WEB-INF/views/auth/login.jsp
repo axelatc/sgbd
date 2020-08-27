@@ -1,6 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<div class="container">
     <div class="login-form">
         <form action="${pageContext.request.contextPath}/login" method="post">
             <h2 class="text-center">Log in</h2>
@@ -31,4 +30,3 @@
             </div>
         </form>
     </div>
-</div>
