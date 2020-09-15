@@ -42,7 +42,7 @@ public class WorkerModel {
     }
 
 
-    public class WorkerValidator extends ValidatorImpl {
+    public class WorkerValidator extends Validator {
         private final int FIRSTNAME_MIN_LENGTH = 1;
         private final int FIRSTNAME_MAX_LENGTH = 255;
         private final int LASTNAME_MIN_LENGTH = 1;

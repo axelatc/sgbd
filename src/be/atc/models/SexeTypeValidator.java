@@ -9,7 +9,7 @@ import java.util.List;
 import static be.atc.utils.ValidationUtils.hasContent;
 
 
-public class SexeTypeValidator extends ValidatorImpl {
+public class SexeTypeValidator extends Validator {
     private static final Logger log = Logger.getLogger(SexeTypeValidator.class);
     private final String value;
 

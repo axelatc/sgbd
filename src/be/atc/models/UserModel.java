@@ -30,7 +30,7 @@ public class UserModel {
         return password;
     }
 
-    public class UserValidator implements Validator {
+    public class UserValidator extends Validator {
 
         @Override
         public boolean isValid() {
@@ -46,7 +46,7 @@ public class UserModel {
         }
 
         @Override
-        public List<String> getAllErrorMessagesOrEmpty() {
+        protected List<String> generateAllErrorMessagesOrEmpty() {
             ArrayList<String> errorMessages = new ArrayList<String>();
             errorMessages.addAll(getErrorMessagesOrEmptyForUsername());
             errorMessages.addAll(getErrorMessagesOrEmptyForPassword());
