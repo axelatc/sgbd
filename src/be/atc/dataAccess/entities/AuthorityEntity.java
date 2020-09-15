@@ -6,6 +6,17 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "authorities", schema = "projetsgbd")
+@NamedQueries({
+        @NamedQuery(name = "Authorities.findAuthorityByLabel",
+                query = "SELECT w " +
+                        "FROM AuthorityEntity w " +
+                        "WHERE w.label = :label"),
+
+        // CRUD Authorities queries
+        @NamedQuery(name = "Authorities.findAll",
+                query = "SELECT w " +
+                        "FROM AuthorityEntity w"),
+})
 public class AuthorityEntity {
     private int id;
     private String descr;
