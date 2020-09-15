@@ -105,33 +105,34 @@ CREATE TABLE weekly_plans
 
 -- Populate tables --
 INSERT INTO `roles` (`id`, `label`, `descr`)
-VALUES (1, "travailleur", "un travailleur lambda");
-INSERT INTO `roles` (`id`, `label`, `descr`)
-VALUES (2, "second d'équipe", "le second du chef d'équipe");
-INSERT INTO `roles` (`id`, `label`, `descr`)
-VALUES (3, "chef d'équipe", "le chef d'une équipe ou d'un rayon");
-INSERT INTO `roles` (`id`, `label`, `descr`)
-VALUES (4, "secrétaire", "la secrétaire du patron");
+VALUES (1, "travailleur", "un travailleur lambda"),
+		(2, "second d'équipe", "le second du chef d'équipe"),
+		(3, "chef d'équipe", "le chef d'une équipe ou d'un rayon"),
+		(4, "secrétaire", "la secrétaire du patron"),
+		(5, "patron", "le patron");
 
 INSERT INTO `teams` (`id`, `label`)
-VALUES (1, "employés");
-INSERT INTO `teams` (`id`, `label`)
-VALUES (2, "service technique");
+VALUES (1, "employés"),
+		(2, "service technique");
 
 INSERT INTO `workers`
 (`id`, `roles_id`, `teams_id`, `first_name`, `last_name`, `username`, `password_key`, `birthdate`, `is_deleted`, `sexe`)
-VALUES (1, 4, 1, "Jessica", "SuperDactylo", "jessica_sd", "randompassword", "2000-01-01", FALSE, "FEMELLE");
-
-INSERT INTO `workers`
-(`id`, `roles_id`, `teams_id`, `first_name`, `last_name`, `username`, `password_key`, `birthdate`, `is_deleted`, `sexe`)
-VALUES (2, 1, 1, "Jack", "Black", "jack_black", "randompassword", "2000-01-01", FALSE, "MALE");
+VALUES (1, 4, 1, "Jessica", "SuperDactylo", "jessica_sd", "randompassword", "2000-01-01", FALSE, "FEMELLE"),
+		(2, 5, 1, "Jack", "Black", "jack_black", "randompassword", "2000-01-01", FALSE, "MALE");
 
 INSERT INTO `authorities`
     (`id`, `label`, `descr`)
-VALUES (1, "consulter les utilisateurs", "permet de consulter tous les utilisateurs de l'application et leurs détails");
+VALUES (1, "consulter les utilisateurs", "permet de consulter tous les utilisateurs de l'application et leurs détails"),
+		(2, "éditer les utilisateurs", "permet d'éditer tous les utilisateurs de l'application et leurs détails"),
+        (3, "toutes les permissions", "a toutes les permissions");
 
 INSERT INTO `roles_authorities` (`roles_id`, `authorities_id`)
-VALUES (4, 1);
+VALUES (4, 1),
+		(4, 2);
+
+INSERT INTO `roles_authorities` (`roles_id`, `authorities_id`)
+VALUES (5, 1),
+		(5, 2);
 
 
 
