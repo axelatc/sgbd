@@ -21,7 +21,7 @@
                         <td>${role.description}</td>
                         <td>${role.authorities.size()}</td>
                         <td>
-                            <form name="form-roles-edit" method="POST"
+                            <form name="form-roles-edit" method="GET"
                                   action="${pageContext.request.contextPath}/roles/edit">
                                 <div class="form-group">
                                     <input name="editID" type="hidden" value="${role.id}">
