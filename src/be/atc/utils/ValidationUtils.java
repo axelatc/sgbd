@@ -35,15 +35,19 @@ public class ValidationUtils {
         return (string != null && string.trim().length() > 0);
     }
 
-    /**
-     * Returns true only if the field passes the test, and is NOT null.
-     */
-    private boolean ensureNotNull(Object field, String errorMsg, List<String> errors) {
-        boolean result = true;
-        if (field == null) {
-            errors.add(errorMsg);
-            result = false;
+    public static boolean isEntityId(String id) {
+        log.debug("Vérification qu'une chaîne de chars est un id valide d'entité: " + id);
+        if (hasContent(id)){
+            try {
+                int idAsInt = Integer.parseInt(id);
+                return idAsInt > 0;
+            } catch (NumberFormatException e) {
+                return false;
+            }
         }
-        return result;
+        else {
+            return false;
+        }
+
     }
 }
