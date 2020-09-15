@@ -21,7 +21,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -38,23 +37,12 @@ public class WorkersServlet extends HttpServlet {
     public static final String EDIT_VIEW_PATH = THIS_VIEWS_ROOT_PATH + "edit.jsp";
     public static final String DELETE_VIEW_PATH = THIS_VIEWS_ROOT_PATH + "delete.jsp";
 
-    private List<String> formErrorMessages;
-    private List<String> systemErrorMessages;
-    private List<String> systemSuccessMessages;
-
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        this.formErrorMessages = new ArrayList<>();
-        this.systemErrorMessages = new ArrayList<>();
-        this.systemSuccessMessages = new ArrayList<>();
-
-
-    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-
+        List<String> formErrorMessages = new ArrayList<>();
+        List<String> systemErrorMessages = new ArrayList<>();
+        List<String> systemSuccessMessages = new ArrayList<>();
+        String forwardURL = "";
 
         String requestURI = request.getRequestURI();
         if (requestURI.endsWith("/edit/checkID")) {
@@ -65,25 +53,27 @@ public class WorkersServlet extends HttpServlet {
                 try {
                     editIDAsInt = Integer.parseInt(editID);
                     WorkerEntity workerToEdit = new WorkerService(EMF.getEM()).findByIdOrNull(editIDAsInt);
+                    log.debug("worker to edit " + workerToEdit.toString());
                     //On verifie que le worker existe dans la DB
                     if (workerToEdit != null) {
                         request.setAttribute("worker", workerToEdit);
                         populateSelectOptionsForCreateOrEditView(request);
-                        request.getRequestDispatcher(EDIT_VIEW_PATH).forward(request, response);
+                        forwardURL = EDIT_VIEW_PATH;
                         //Le worker n'existe pas dans la DB
                     } else {
                         systemErrorMessages.add("Le worker que vous essayez d'éditer n'existe pas dans la DB");
-                        request.getRequestDispatcher(LIST_VIEW_PATH).forward(request, response);
+                        forwardURL = LIST_VIEW_PATH;
                     }
                 } catch (NumberFormatException e) {
                     systemErrorMessages.add("L'editID du worker n'est pas un chiffre entier. Réessayer d'éditer");
-                    request.getRequestDispatcher(LIST_VIEW_PATH).forward(request, response);
+                    forwardURL = LIST_VIEW_PATH;
                 }
             } else {
                 systemErrorMessages.add("L'editID du worker n'a pas de contenu");
-                request.getRequestDispatcher(LIST_VIEW_PATH).forward(request, response);
+                forwardURL = LIST_VIEW_PATH;
             }
             request.setAttribute("systemErrorMessages", systemErrorMessages);
+            request.getRequestDispatcher(forwardURL).forward(request, response);
         }
 
         if (requestURI.endsWith("/delete")) {
@@ -120,6 +110,7 @@ public class WorkersServlet extends HttpServlet {
                 request.getRequestDispatcher(LIST_VIEW_PATH).forward(request, response);
             }
             request.setAttribute("systemSuccessMessages", systemSuccessMessages);
+            request.getRequestDispatcher(forwardURL).forward(request, response);
         }
 
 
@@ -205,7 +196,7 @@ public class WorkersServlet extends HttpServlet {
 
                         systemSuccessMessages.add("Votre worker a été édité.");
                         request.setAttribute("systemSuccessMessages", systemSuccessMessages);
-                        request.getRequestDispatcher(LIST_VIEW_PATH).forward(request, response);
+                        request.getRequestDispatcher("/workers/list").forward(request, response);
                     }
                 }
                 // Le rôle ou l'équipe n'ont pas été trouvées dans la DB
@@ -230,12 +221,10 @@ public class WorkersServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String requestURI = request.getRequestURI();
-
+        String forwardURL = "";
         if (requestURI.endsWith("/create")) {
             populateSelectOptionsForCreateOrEditView(request);
-            getServletContext()
-                    .getRequestDispatcher(CREATE_VIEW_PATH)
-                    .forward(request, response);
+            forwardURL = CREATE_VIEW_PATH;
         }
         if (requestURI.endsWith("/list")) {
             WorkerService service = new WorkerService(EMF.getEM());
@@ -244,12 +233,11 @@ public class WorkersServlet extends HttpServlet {
             // On retire l'utilisateur authentifié de la liste
             allWorkers.remove((WorkerEntity) request.getAttribute("authUser"));
             request.setAttribute("workers", allWorkers);
-
-            getServletContext()
-                    .getRequestDispatcher(LIST_VIEW_PATH)
-                    .forward(request, response);
+            forwardURL = LIST_VIEW_PATH;
         }
-
+        getServletContext()
+                .getRequestDispatcher(forwardURL)
+                .forward(request, response);
     }
 
     private void populateSelectOptionsForCreateOrEditView(HttpServletRequest request) {
