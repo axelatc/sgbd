@@ -10,7 +10,7 @@ import javax.persistence.NoResultException;
 import java.time.LocalDate;
 import java.util.Collection;
 
-public class WorkerService extends ServiceImpl<WorkerEntity> {
+public class WorkerService extends Service<WorkerEntity> {
 
     public WorkerService(EntityManager em) {
         super(em);

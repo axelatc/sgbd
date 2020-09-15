@@ -6,7 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import java.util.Collection;
 
-public class TeamService extends ServiceImpl<TeamEntity> {
+public class TeamService extends Service<TeamEntity> {
     public TeamService(EntityManager em) {
         super(em);
     }

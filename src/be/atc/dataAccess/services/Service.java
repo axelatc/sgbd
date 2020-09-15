@@ -1,18 +1,42 @@
 package be.atc.dataAccess.services;
 
+import org.apache.log4j.Logger;
+
+import javax.persistence.EntityManager;
 import java.util.Collection;
 
-public interface Service<T> {
+public abstract class Service<T>{
+    protected static final Logger log = Logger.getLogger(Service.class);
+    protected EntityManager em;
 
-    boolean hasDuplicate(T t);
+    public Service(EntityManager em) {
+        this.em = em;
+    }
 
-    T findByIdOrNull(int id);
+    public abstract boolean hasDuplicate(T t);
 
-    Collection<T> findAllOrNull();
+    public abstract T findByIdOrNull(int id);
 
-    void save(T t);
+    public abstract Collection<T> findAllOrNull();
 
-    void update(T t);
+    public void save(T t) {
+        log.debug("Saving " + t.toString());
+        em.getTransaction().begin();
+        em.persist(t);
+        em.getTransaction().commit();
+    }
 
-    void delete(T t);
+    public void update(T t) {
+        log.debug("Updating :" + t.toString());
+        em.getTransaction().begin();
+        em.merge(t);
+        em.getTransaction().commit();
+    }
+
+    public void delete(T t) {
+        log.debug("Removing :" + t.toString());
+        em.getTransaction().begin();
+        em.remove(t);
+        em.getTransaction().commit();
+    }
 }

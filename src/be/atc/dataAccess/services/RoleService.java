@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import java.util.Collection;
 
-public class RoleService extends ServiceImpl<RoleEntity> {
+public class RoleService extends Service<RoleEntity> {
 
     public RoleService(EntityManager em) {
         super(em);
